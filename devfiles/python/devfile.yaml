@@ -1,0 +1,26 @@
+schemaVersion: 2.0.0
+components:
+  - container:
+      image:  quay.io/eclipse/che-python-3.7:nightly
+      name: py-web
+      mountSources: true
+      endpoints:
+        - name: web
+          targetPort: 5000
+
+commands:
+  - exec:
+      commandLine: pip install --user -r requirements.txt
+      id: pip-install-requirements
+      group:
+        kind: build
+        isDefault: true
+      component: py-web
+  - exec:
+      commandLine: "python app.py"
+      id: run-app
+      workingDir: /projects
+      component: py-web
+      group:
+        kind: run
+        isDefault: true
