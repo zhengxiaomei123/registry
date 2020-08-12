@@ -6,7 +6,7 @@ components:
       mountSources: true
       endpoints:
         - name: web
-          targetPort: 5000
+          targetPort: 8080
 
 commands:
   - exec:
