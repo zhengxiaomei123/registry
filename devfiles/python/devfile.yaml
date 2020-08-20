@@ -1,13 +1,19 @@
 schemaVersion: 2.0.0
+metadata:
+  name: python
+  version: 1.0.0
+starterProjects:
+    - name: python-example
+      git:
+        location: https://github.com/odo-devfiles/python-ex
 components:
   - container:
-      image:  quay.io/eclipse/che-python-3.7:nightly
+      image: quay.io/eclipse/che-python-3.7:nightly
       name: py-web
       mountSources: true
       endpoints:
         - name: web
           targetPort: 8080
-
 commands:
   - exec:
       commandLine: pip install --user -r requirements.txt
