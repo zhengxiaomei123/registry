@@ -8,46 +8,30 @@ starterProjects:
       remotes:
         origin: "https://github.com/odo-devfiles/springboot-ex.git"
 components:
-  - name: tools
+  - name:
     container:
-      image: maysunfaisal/springbootbuild
+      name: tools
+      image: quay.io/eclipse/che-java11-maven:nightly
       memoryLimit: 768Mi
-      command: ['tail']
-      args: [ '-f', '/dev/null']
       mountSources: true
-      volumeMounts:
-        - name: springbootpvc
-          path: /data
-  - name: runtime
-    container:
-      image: maysunfaisal/springbootruntime
-      memoryLimit: 768Mi
-      command: ['tail']
-      args: [ '-f', '/dev/null']
       endpoints:
-        - name: '8080/tcp'
-          targetPort: 8080
-      mountSources: false
-      volumeMounts:
-        - name: springbootpvc
-          path: /data
-  - name: springbootpvc
-    volume:
-      size: 4Gi
+      - name: '8080-tcp'
+        targetPort: 8080
 commands:
   - id: devBuild
     exec:
       component: tools
-      commandLine: "/artifacts/bin/build-container-full.sh"
+      commandLine: mvn install
       workingDir: /projects
       group:
         kind: build
         isDefault: true
   - id: devRun
     exec:
-      component: runtime
-      commandLine: "/artifacts/bin/start-server.sh"
-      workingDir: /
+      id: devRun
+      component: tools
+      commandLine: "java -jar target/*.jar"
+      workingDir: /projects
       group:
         kind: run
         isDefault: true
