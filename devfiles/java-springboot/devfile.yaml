@@ -21,7 +21,7 @@ commands:
   - id: devBuild
     exec:
       component: tools
-      commandLine: mvn install
+      commandLine: "mvn package"
       workingDir: /projects
       group:
         kind: build
@@ -30,7 +30,7 @@ commands:
     exec:
       id: devRun
       component: tools
-      commandLine: "java -jar target/*.jar"
+      commandLine: "mvn spring-boot:run"
       workingDir: /projects
       group:
         kind: run
