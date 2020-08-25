@@ -35,3 +35,11 @@ commands:
       group:
         kind: run
         isDefault: true
+  - exec:
+      id: devDebug
+      component: tools
+      commandLine: "mvn spring-boot:run -Drun.jvmArguments=\"-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=${DEBUG_PORT}\""
+      workingDir: /projects
+      group:
+        kind: debug
+        isDefault: true
