@@ -30,5 +30,11 @@ commands:
       group:
         kind: run
         isDefault: true
-
+  - exec:
+      commandLine: "pip install --user debugpy && python -m debugpy --listen 0.0.0.0:${DEBUG_PORT} app.py"
+      id: py-debug
+      workingDir: /projects
+      component: py-web
+      group:
+        kind: debug
         
