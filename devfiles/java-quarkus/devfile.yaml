@@ -32,8 +32,7 @@ commands:
       id: dev-run
       component: tools
       commandLine: "mvn quarkus:dev"
-      attributes:
-          restart: "false"
+      hotReloadCapable: true
       group:
         kind: run
         isDefault: true
@@ -42,8 +41,7 @@ commands:
       id: dev-debug
       component: tools
       commandLine: "mvn quarkus:dev -Ddebug=${DEBUG_PORT}"
-      attributes:
-          restart: "false"
+      hotReloadCapable: true
       group:
         kind: debug
         isDefault: true
