@@ -66,10 +66,10 @@ test() {
     git clone --depth 1 "$exampleRepo" .
     cd "${tmpDir}/${exampleDir}" || return 1
 
-    odo project create "$devfileName"
-    odo create "$devfileName" --devfile "$DEVFILES_DIR/$devfileName/devfile.yaml"
-    odo url create myurl --port "$urlPort"
-    odo push
+    odo project create "$devfileName" || error=true
+    odo create "$devfileName" --devfile "$DEVFILES_DIR/$devfileName/devfile.yaml" || error=true
+    odo url create myurl --port "$urlPort" || error=true
+    odo push || error=true
 
     # check if appplication is returning expected content
     url=$(getURL "myurl")
