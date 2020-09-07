@@ -1,45 +1,46 @@
 schemaVersion: 2.0.0
 metadata:
   name: java-springboot
-  version: 1.0.0
+  version: 1.1.0
 starterProjects:
   - name: springbootproject
     git:
       remotes:
         origin: "https://github.com/odo-devfiles/springboot-ex.git"
 components:
-  - name:
+  - name: tools
     container:
-      name: tools
       image: quay.io/eclipse/che-java11-maven:nightly
       memoryLimit: 768Mi
       mountSources: true
       endpoints:
       - name: '8080-tcp'
         targetPort: 8080
+      volumeMounts:
+        - name: m2
+          path: /home/user/.m2
+  - name: m2
+    volume:
+      size: 3Gi
 commands:
-  - id: devBuild
+  - id: build
     exec:
       component: tools
-      commandLine: "mvn package"
-      workingDir: /projects
+      commandLine: "mvn clean -Dmaven.repo.local=/home/user/.m2/repository package -Dmaven.test.skip=true"
       group:
         kind: build
         isDefault: true
-  - id: devRun
+  - id: run
     exec:
-      id: devRun
       component: tools
-      commandLine: "mvn spring-boot:run"
-      workingDir: /projects
+      commandLine: "mvn -Dmaven.repo.local=/home/user/.m2/repository spring-boot:run"
       group:
         kind: run
         isDefault: true
-  - exec:
-      id: devDebug
+  - id: debug
+    exec:
       component: tools
-      commandLine: "mvn spring-boot:run -Drun.jvmArguments=\"-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=${DEBUG_PORT}\""
-      workingDir: /projects
+      commandLine: "java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=${DEBUG_PORT},suspend=n -jar target/*.jar"
       group:
         kind: debug
         isDefault: true
