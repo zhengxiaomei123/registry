@@ -1,7 +1,7 @@
 schemaVersion: 2.0.0
 metadata:
   name: java-quarkus
-  version: 1.0.0
+  version: 1.1.0
   website: https://quarkus.io
 starterProjects:
   - name: quarkus-ex
@@ -26,12 +26,12 @@ commands:
   - exec:
       id: init-compile
       component: tools
-      commandLine: "mvn compile"
+      commandLine: "mvn -Dmaven.repo.local=/home/user/.m2/repository compile"
       workingDir: $PROJECTS_ROOT
   - exec:
       id: dev-run
       component: tools
-      commandLine: "mvn quarkus:dev"
+      commandLine: "mvn -Dmaven.repo.local=/home/user/.m2/repository quarkus:dev"
       hotReloadCapable: true
       group:
         kind: run
@@ -40,7 +40,7 @@ commands:
   - exec:
       id: dev-debug
       component: tools
-      commandLine: "mvn quarkus:dev -Ddebug=${DEBUG_PORT}"
+      commandLine: "mvn -Dmaven.repo.local=/home/user/.m2/repository quarkus:dev -Ddebug=${DEBUG_PORT}"
       hotReloadCapable: true
       group:
         kind: debug

@@ -1,7 +1,7 @@
 schemaVersion: 2.0.0
 metadata:
   name: java-maven
-  version: 1.0.0
+  version: 1.1.0
 components:
   - container:
       name: tools
@@ -20,7 +20,7 @@ commands:
   - exec:
       id: mvn-package
       component: tools
-      commandLine: "mvn package"
+      commandLine: "mvn -Dmaven.repo.local=/home/user/.m2/repository package"
       group:
         kind: build
         isDefault: true
