@@ -6,9 +6,9 @@ metadata:
 starterProjects:
   - name: user-app
     git:
-      location: 'https://github.com/OpenLiberty/application-stack.git'
+      remotes:
+        origin: 'https://github.com/OpenLiberty/application-stack.git'
       sparseCheckoutDir: /templates/default
-      branch: master
 components:
   - container:
       name: devruntime
