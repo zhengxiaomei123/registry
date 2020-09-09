@@ -3,8 +3,8 @@ metadata:
   name: java-maven
   version: 1.0.0
 components:
-  - container:
-      name: tools
+  - name: tools
+    container:
       image: quay.io/eclipse/che-java11-maven:nightly
       memoryLimit: 512Mi
       mountSources: true
@@ -14,25 +14,25 @@ components:
       volumeMounts:
         - name: m2
           path: /home/user/.m2
-  - volume:
-      name: m2
+  - name: m2
+    volume: {}
 commands:
-  - exec:
-      id: mvn-package
+  - id: mvn-package
+    exec:
       component: tools
       commandLine: "mvn package"
       group:
         kind: build
         isDefault: true
-  - exec:
-      id: run
+  - id: run 
+    exec:
       component: tools
       commandLine: "java -jar target/*.jar"
       group:
         kind: run
         isDefault: true
-  - exec:
-      id: debug
+  - id: debug
+    exec:
       component: tools
       commandLine: "java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=${DEBUG_PORT},suspend=n -jar target/*.jar"
       group:

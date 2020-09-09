@@ -9,8 +9,8 @@ starterProjects:
       remotes:
         origin: https://github.com/odo-devfiles/quarkus-ex
 components:
-  - container:
-      name: tools
+  - name: tools
+    container:
       image: quay.io/eclipse/che-quarkus:nightly
       memoryLimit: 1512Mi
       mountSources: true
@@ -20,17 +20,17 @@ components:
       endpoints:
         - name: '8080/http'
           targetPort: 8080
-  - volume:
-      name: m2
+  - name: m2
+    volume:
       size: 3Gi
 commands:
-  - exec:
-      id: init-compile
+  - id: init-compile
+    exec:
       component: tools
       commandLine: "mvn compile"
       workingDir: $PROJECTS_ROOT
-  - exec:
-      id: dev-run
+  - id: dev-run
+    exec:
       component: tools
       commandLine: "mvn quarkus:dev"
       hotReloadCapable: true
@@ -38,8 +38,8 @@ commands:
         kind: run
         isDefault: true
       workingDir: $PROJECTS_ROOT
-  - exec:
-      id: dev-debug
+  - id: dev-debug
+    exec:
       component: tools
       commandLine: "mvn quarkus:dev -Ddebug=${DEBUG_PORT}"
       hotReloadCapable: true

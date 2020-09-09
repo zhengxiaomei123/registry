@@ -8,8 +8,8 @@ starterProjects:
       remotes:
         origin: "https://github.com/odo-devfiles/springboot-ex.git"
 components:
-  - container:
-      name: tools
+  - name: tools
+    container:
       image: maysunfaisal/springbootbuild
       memoryLimit: 768Mi
       command: ['tail']
@@ -18,8 +18,8 @@ components:
       volumeMounts:
         - name: springbootpvc
           path: /data
-  - container:
-      name: runtime
+  - name: runtime
+    container:
       image: maysunfaisal/springbootruntime
       memoryLimit: 768Mi
       command: ['tail']
@@ -31,20 +31,20 @@ components:
       volumeMounts:
         - name: springbootpvc
           path: /data
-  - volume:
-      name: springbootpvc
+  - name: springbootpvc
+    volume:
       size: 4Gi
 commands:
-  - exec:
-      id: devBuild
+  - id: devBuild
+    exec:
       component: tools
       commandLine: "/artifacts/bin/build-container-full.sh"
       workingDir: /projects
       group:
         kind: build
         isDefault: true
-  - exec:
-      id: devRun
+  - id: devRun
+    exec:
       component: runtime
       commandLine: "/artifacts/bin/start-server.sh"
       workingDir: /

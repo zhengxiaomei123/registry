@@ -10,8 +10,8 @@ starterProjects:
       remotes:
         origin: "https://github.com/odo-devfiles/nodejs-ex.git"
 components:
-  - container:
-      name: runtime
+  - name: runtime
+    container:
       image: registry.access.redhat.com/ubi8/nodejs-12:1-45
       memoryLimit: 1024Mi
       mountSources: true
@@ -20,32 +20,32 @@ components:
         - name: http-3000
           targetPort: 3000
 commands:
-  - exec:
-      id: install
+  - id: install
+    exec:
       component: runtime
       commandLine: npm install
       workingDir: /project
       group:
         kind: build
         isDefault: true
-  - exec:
-      id: run
+  - id: run
+    exec:
       component: runtime
       commandLine: npm start
       workingDir: /project
       group:
         kind: run
         isDefault: true
-  - exec:
-      id: debug
+  - id: debug
+    exec:
       component: runtime
       commandLine: npm run debug
       workingDir: /project
       group:
         kind: debug
         isDefault: true
-  - exec:
-      id: test
+  - id: test
+    exec:
       component: runtime
       commandLine: npm test
       workingDir: /project
