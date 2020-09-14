@@ -3,35 +3,43 @@ metadata:
   name: python-django
   version: 1.0.0
 starterProjects:
-    - name: django-example
-      git:
-        location: https://github.com/odo-devfiles/python-django-ex
+  - name: django-example
+    git:
+      remotes:
+        origin: https://github.com/odo-devfiles/python-django-ex
 components:
-  - container:
+  - name: py-web
+    container:
       image: quay.io/eclipse/che-python-3.7:nightly
-      name: py-web
       mountSources: true
       endpoints:
         - name: web
           targetPort: 8000
 commands:
-  - exec:
+  - id: pip-install-requirements
+    exec:
       commandLine: pip install --user -r requirements.txt
-      id: pip-install-requirements
       group:
         kind: build
         isDefault: true
       component: py-web
-  - exec:
+  - id: run-app
+    exec:
       commandLine: "python manage.py runserver 0.0.0.0:8000"
-      id: run-app
       workingDir: /projects
       component: py-web
       group:
         kind: run
         isDefault: true
-  - exec:
-      id: run-migrations
+  - id: run-migrations
+    exec:
       commandLine: "python manage.py migrate"
       workingDir: /projects
       component: py-web
+  - id: debug
+    exec:
+      commandLine: "pip install --user debugpy && export DEBUG_MODE=True && python -m debugpy --listen 0.0.0.0:${DEBUG_PORT} manage.py runserver 0.0.0.0:8000 --noreload --nothreading"
+      workingDir: /projects
+      component: py-web
+      group:
+        kind: debug

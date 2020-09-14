@@ -3,38 +3,38 @@ metadata:
   name: python
   version: 1.0.0
 starterProjects:
-    - name: python-example
-      git:
-        location: https://github.com/odo-devfiles/python-ex
+  - name: python-example
+    git:
+      remotes:
+        origin: https://github.com/odo-devfiles/python-ex
 components:
-  - container:
+  - name: py-web
+    container:
       image: quay.io/eclipse/che-python-3.7:nightly
-      name: py-web
       mountSources: true
       endpoints:
         - name: web
           targetPort: 8080
 commands:
-  - exec:
+  - id: pip-install-requirements
+    exec:
       commandLine: pip install --user -r requirements.txt
-      id: pip-install-requirements
       group:
         kind: build
         isDefault: true
       component: py-web
-  - exec:
+  - id: run-app
+    exec:
       commandLine: "python app.py"
-      id: run-app
       workingDir: /projects
       component: py-web
       group:
         kind: run
         isDefault: true
-  - exec:
+  - id: debugpy
+    exec:
       commandLine: "pip install --user debugpy && python -m debugpy --listen 0.0.0.0:${DEBUG_PORT} app.py"
-      id: py-debug
       workingDir: /projects
       component: py-web
       group:
         kind: debug
-        
