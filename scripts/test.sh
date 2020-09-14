@@ -39,7 +39,36 @@ waitForContent() {
     return 1
 }
 
+# periodicaly check output for Debug
+# return if content is found
+# exit after 10 tries
+waitForDebugCheck() {
+   devfileName=$1
 
+    for i in $(seq 1 10); do
+        if [ "$devfileName" = "nodejs" ]; then
+            curl http://127.0.0.1:5858/ | grep "WebSockets request was expected"
+            if [ $? -ne 0 ]; then
+                echo "debugger not working"
+            else
+                echo "debugger working"
+                return 0
+            fi
+        else
+            (jdb -attach 5858 >> out.txt)& JDBID=$!
+            cat out.txt | grep -i "Initializing"
+            if [ $? -ne 0 ]; then
+                echo "debugger not working"
+            else
+                echo "debugger working"
+                kill -9 $JDBID
+                return 0
+            fi
+        fi
+        sleep 10
+    done
+    return 1
+}
 
 # run test on devfile
 # parameters:
@@ -79,6 +108,19 @@ test() {
         error=true
     fi
 
+    #check if debug is working
+    cat $DEVFILES_DIR"$devfileName/devfile.yaml" | grep "kind: debug"
+    if [ $? -eq 0 ];  then
+        odo push --debug
+        (odo debug port-forward)& CPID=$!
+        waitForDebugCheck $devfileName
+        if [ $? -ne 0 ]; then
+            echo "Debuger check failed"
+            error=true
+        fi
+    fi
+
+    kill -9 $CPID
     odo delete -f -a
     odo project delete -f "$devfileName"
 
@@ -100,7 +142,7 @@ odo preference set -f experimental true
 
 # run test scenarios
 test "java-maven" "https://github.com/odo-devfiles/springboot-ex.git" "/" "8080" "/" "You are currently running a Spring server built for the IBM Cloud"
-test "java-openliberty" "https://github.com/OpenLiberty/application-stack.git" "templates/default/" "9080" "/starter/" "Welcome to your Open Liberty Microservice built with Odo"
+test "java-openliberty" "https://github.com/OpenLiberty/application-stack.git" "templates/default/" "9080" "/" "Welcome to your Open Liberty Microservice built with Odo"
 test "java-quarkus" "https://github.com/odo-devfiles/quarkus-ex" "/" "8080" "/" "Congratulations, you have created a new Quarkus application."
 test "java-springboot" "https://github.com/odo-devfiles/springboot-ex.git" "/" "8080" "/" "You are currently running a Spring server built for the IBM Cloud"
 test "nodejs" "https://github.com/odo-devfiles/nodejs-ex.git" "/" "3000" "/" "Hello from Node.js Starter Application!"
@@ -123,7 +165,7 @@ if [ "$executedTests" -ne "$numberOfDevfiles" ]; then
     echo "There is $numberOfDevfiles devfiles in registry but only $executedTests tests executed."
 fi
 
-if [ "$error" == "true" ]; then
+if [ "$error" = "true" ]; then
     exit 1
 fi
 exit 0
