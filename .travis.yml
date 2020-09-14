@@ -15,6 +15,7 @@ jobs:
         - sudo mv odo-linux-amd64 /usr/local/bin/odo
         - which odo
         - odo login -u developer
+        - sudo apt-get -y install default-jdk
         - ./scripts/test.sh
         - odo logout
     - name: "test all Devfiles with latest master"
@@ -25,5 +26,6 @@ jobs:
         - cd $GOPATH/src/github.com/odo; make bin; cd -
         - sudo mv $GOPATH/src/github.com/odo/odo /usr/local/bin/odo
         - odo login -u developer
+        - sudo apt-get -y install default-jdk
         - ./scripts/test.sh
         - odo logout
