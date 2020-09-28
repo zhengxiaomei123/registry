@@ -10,7 +10,7 @@ starterProjects:
 components:
   - name: tools
     container:
-      image: quay.io/eclipse/che-java11-maven:nightly
+      image: "quay.io/crw/plugin-java8-openj9-rhel8@sha256:14f2774e92b70d85280e506f81e2ea9a89c26490fd53a4421df8a694bd944d2d" # tag: quay.io/crw/plugin-java8-openj9-rhel8:2.4
       memoryLimit: 768Mi
       mountSources: true
       endpoints:

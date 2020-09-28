@@ -11,7 +11,7 @@ starterProjects:
 components:
   - name: tools
     container:
-      image: quay.io/eclipse/che-quarkus:nightly
+      image: "quay.io/crw/plugin-java11-openj9-rhel8@sha256:27a71612f9bd3bee77adb4e164c44c61cf5085458d592215b2fe74c55d11abc6" # tag: quay.io/crw/plugin-java11-openj9-rhel8:2.4
       memoryLimit: 1512Mi
       mountSources: true
       volumeMounts:

@@ -10,7 +10,7 @@ starterProjects:
 components:
   - name: py-web
     container:
-      image: quay.io/eclipse/che-python-3.7:nightly
+      image: quay.io/zhengxiaomei123/che-python-3.7:s390x
       mountSources: true
       endpoints:
         - name: web
