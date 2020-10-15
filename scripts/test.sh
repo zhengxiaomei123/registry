@@ -11,8 +11,8 @@ executedTests=0
 # return url of an odo url called "myurl"
 getURL() {
     urlName=$1
-    # get 3rd colum from second line
-    url=$(odo url describe "$urlName" | odo url describe myurl | tail -n+2 | awk '{ print $3 }')
+    # get 3rd column from last line
+    url=$(odo url list | tail -1 | awk '{ print $3 }')
     echo "$url"
 }
 
