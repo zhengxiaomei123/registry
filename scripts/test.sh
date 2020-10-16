@@ -142,7 +142,7 @@ odo preference set -f experimental true
 
 # run test scenarios
 test "java-maven" "https://github.com/odo-devfiles/springboot-ex.git" "/" "8080" "/" "You are currently running a Spring server built for the IBM Cloud"
-test "java-openliberty" "https://github.com/OpenLiberty/application-stack-starters.git" "/" "9080" "/" "Welcome to your Open Liberty Microservice built with Odo"
+test "java-openliberty" "https://github.com/OpenLiberty/application-stack-intro.git" "/" "9080" "/api/resource" "Hello! Welcome to Open Liberty"
 test "java-quarkus" "https://github.com/odo-devfiles/quarkus-ex" "/" "8080" "/" "Congratulations, you have created a new Quarkus application."
 test "java-springboot" "https://github.com/odo-devfiles/springboot-ex.git" "/" "8080" "/" "You are currently running a Spring server built for the IBM Cloud"
 test "nodejs" "https://github.com/odo-devfiles/nodejs-ex.git" "/" "3000" "/" "Hello from Node.js Starter Application!"
