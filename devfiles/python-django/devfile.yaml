@@ -26,7 +26,7 @@ commands:
   - id: run-app
     exec:
       commandLine: "python manage.py runserver 0.0.0.0:8000"
-      workingDir: ${PROJECT_SOURCE}
+      workingDir: ${PROJECTS_ROOT}
       component: py-web
       group:
         kind: run
@@ -34,12 +34,12 @@ commands:
   - id: run-migrations
     exec:
       commandLine: "python manage.py migrate"
-      workingDir: ${PROJECT_SOURCE}
+      workingDir: ${PROJECTS_ROOT}
       component: py-web
   - id: debug
     exec:
       commandLine: "pip install --user debugpy && export DEBUG_MODE=True && python -m debugpy --listen 0.0.0.0:${DEBUG_PORT} manage.py runserver 0.0.0.0:8000 --noreload --nothreading"
-      workingDir: ${PROJECT_SOURCE}
+      workingDir: ${PROJECTS_ROOT}
       component: py-web
       group:
         kind: debug
