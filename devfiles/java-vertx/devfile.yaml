@@ -28,7 +28,7 @@ components:
 commands:
   - id: mvn-package
     exec:
-      commandLine: mvn package
+      commandLine: mvn package -Dmaven.test.skip=true
       component: runtime
       group:
         isDefault: true
