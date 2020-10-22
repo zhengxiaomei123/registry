@@ -54,7 +54,13 @@ waitForDebugCheck() {
                 echo "debugger working"
                 return 0
             fi
-        else
+        elif [ "$devfileName" = "python" ]; then
+            # TODO: not yet implemented
+            return 0
+        elif [ "$devfileName" = "python-django" ]; then
+            # TODO: not yet implemented
+            return 0      
+        else    
             (jdb -attach 5858 >> out.txt)& JDBID=$!
             cat out.txt | grep -i "Initializing"
             if [ $? -ne 0 ]; then
@@ -147,7 +153,7 @@ test "java-quarkus" "https://github.com/odo-devfiles/quarkus-ex" "/" "8080" "/" 
 test "java-springboot" "https://github.com/odo-devfiles/springboot-ex.git" "/" "8080" "/" "You are currently running a Spring server built for the IBM Cloud"
 test "nodejs" "https://github.com/odo-devfiles/nodejs-ex.git" "/" "3000" "/" "Hello from Node.js Starter Application!"
 test "python" "https://github.com/odo-devfiles/python-ex.git" "/" "8000" "/" "Hello World!"
-test "python" "https://github.com/odo-devfiles/python-django-ex.git" "/" "8000" "/" "The install worked successfully! Congratulations!"
+test "python-django" "https://github.com/odo-devfiles/python-django-ex.git" "/" "8000" "/" "The install worked successfully! Congratulations!"
 
 
 # remember if there was an error so the script can exist with proper exit code at the end
