@@ -81,5 +81,34 @@
     "links": {
       "self": "/devfiles/nodejs/devfile.yaml"
     }
+  },
+  {
+    "name": "python",
+    "displayName": "Python",
+    "description": "Python Stack with Python 3.7",
+    "tags": [
+      "Python",
+      "pip"
+    ],
+    "projectType": "python",
+    "language": "python",
+    "links": {
+      "self": "/devfiles/python/devfile.yaml"
+    }
+  },
+  {
+    "name": "python-django",
+    "displayName": "Django",
+    "description": "Python3.7 with Django",
+    "tags": [
+      "Python",
+      "pip",
+      "Django"
+    ],
+    "projectType": "django",
+    "language": "python",
+    "links": {
+      "self": "/devfiles/python-django/devfile.yaml"
+    }
   }
 ]
