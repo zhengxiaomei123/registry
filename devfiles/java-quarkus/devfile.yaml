@@ -18,7 +18,7 @@ components:
         - name: m2
           path: /home/user/.m2
       endpoints:
-        - name: '8080/http'
+        - name: '8080-http'
           targetPort: 8080
   - name: m2
     volume:
