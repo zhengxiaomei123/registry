@@ -15,7 +15,7 @@ components:
     container:
       # this custom image source can be found at:
       # https://github.com/OpenLiberty/application-stack/tree/master/stackimage
-      image: openliberty/application-stack:0.3
+      image: docker.io/open-liberty:latest
       memoryLimit: 1512Mi
       mountSources: true
       endpoints:
