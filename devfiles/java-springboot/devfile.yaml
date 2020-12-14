@@ -10,7 +10,7 @@ starterProjects:
 components:
   - name: tools
     container:
-      image: "registry.redhat.io/codeready-workspaces/plugin-java8-openj9-rhel8"
+      image: "registry.redhat.io/codeready-workspaces/plugin-java11-openj9-rhel8"
       memoryLimit: 768Mi
       mountSources: true
       endpoints:
